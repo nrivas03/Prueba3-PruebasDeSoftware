@@ -1,0 +1,16 @@
+{
+	"name": "cypress-ev3",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"open": "cypress open",
+		"e2e": "cypress run"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"cypress": "^12.1.0"
+	}
+}

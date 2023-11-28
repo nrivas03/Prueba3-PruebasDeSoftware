@@ -1,0 +1,11 @@
+stages:
+  - e2e_test
+
+e2e_test:
+  image: node:latest
+  stage: e2e_test
+  script:
+    # install dependencies
+    - npm ci
+    # run Cypress tests
+    - npm run e2e
