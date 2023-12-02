@@ -24,6 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+require('dotenv').config();
+
 /**
  * Send login request with email and password
  */
@@ -31,10 +33,10 @@ Cypress.Commands.add("login", () => {
 	return cy
 		.request({
 			method: "POST",
-			url: `http://3.138.52.135:3000/auth/login`,
+			url: `${Cypress.env('API_URL')}/auth/login`,
 			body: {
-				email: "n.rivas03@ufromail.cl",
-				password: "RTIDlzk1",
+				email: Cypress.env('USER_TEST_EMAIL'),
+				password: Cypress.env('USER_TEST_PASSWORD'),
 			},
 		})
 		.then(({ body }) => {
@@ -51,7 +53,7 @@ Cypress.Commands.add("login", () => {
  */
 Cypress.Commands.add("getClubs", (token) => {
 	cy.request({
-		url: `http://3.138.52.135:3000/clubs`,
+		url: `${Cypress.env('API_URL')}/clubs`,
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},
@@ -59,3 +61,17 @@ Cypress.Commands.add("getClubs", (token) => {
 		return body.clubs;
 	});
 });
+
+Cypress.Commands.add("waitElementNotVisible", (elementId) => {
+	cy.get(elementId).should('not.exist').then(() => {
+		cy.log('Elemento no es visible');
+	});
+});
+
+Cypress.Commands.add("getMemberCount", () => {
+	return cy.get('.text-h6').contains('Members').then(($members) => {
+		const memberText = $members.text();
+		return memberText.match(/\d+/)[0];
+	});
+});
+

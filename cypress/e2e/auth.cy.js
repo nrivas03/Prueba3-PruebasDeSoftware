@@ -19,7 +19,7 @@ describe("Login", () => {
 		cy.get('input[id="login-email"').type("correo@incorrecto.cl");
 		cy.get('input[id="login-password"').type("correo");
 		cy.get("button").click();
-
+		cy.waitElementNotVisible('#q-loading');
 		cy.get(".text-negative").should("text", "invalid credentials");
 	});
 });
