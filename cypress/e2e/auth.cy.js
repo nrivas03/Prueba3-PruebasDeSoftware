@@ -1,7 +1,7 @@
 describe("Login", () => {
 	it("[SUCCESS L-1] valid login credentials", () => {
-		const email = "n.rivas03@ufromail.cl";
-		const password = "RTIDlzk1";
+		const email = Cypress.env("USER_TEST_EMAIL");
+		const password = Cypress.env("USER_TEST_PASSWORD");
 		cy.visit("/login", {
 			failOnStatusCode: false,
 		});
